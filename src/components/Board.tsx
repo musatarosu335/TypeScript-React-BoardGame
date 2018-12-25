@@ -3,15 +3,42 @@ import styled from '../theme';
 
 import Square from './Square';
 
-class Board extends React.Component {
+interface IState {
+  squares: string[];
+}
+
+class Board extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(''),
+    };
+  }
+
+  handleClick(i: number) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+
+    this.setState({
+      squares,
+    });
+  }
+
   renderSquare(i: number) {
-    return <Square value={i} />;
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
 
   render() {
+    const status = 'Next player: X';
+
     return (
       <div>
-        <Status>Status</Status>
+        <Status>{status}</Status>
         <BoardRow>
           {this.renderSquare(0)}
           {this.renderSquare(1)}

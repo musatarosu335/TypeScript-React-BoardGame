@@ -2,11 +2,12 @@ import * as React from 'react';
 import styled from '../theme';
 
 interface ISquareProps {
-  value: number;
+  value: string;
+  onClick: () => void;
 }
 
-const Square: React.SFC<ISquareProps> = ({ value }) => (
-  <Container>{value}</Container>
+const Square: React.SFC<ISquareProps> = ({ value, onClick }) => (
+  <Container onClick={() => onClick()}>{value}</Container>
 );
 
 const Container = styled.button`
