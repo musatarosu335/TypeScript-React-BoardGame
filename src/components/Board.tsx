@@ -5,6 +5,7 @@ import Square from './Square';
 
 interface IState {
   squares: string[];
+  xIsNext: boolean;
 }
 
 class Board extends React.Component<{}, IState> {
@@ -12,15 +13,17 @@ class Board extends React.Component<{}, IState> {
     super(props);
     this.state = {
       squares: Array(9).fill(''),
+      xIsNext: true,
     };
   }
 
   handleClick(i: number) {
     const squares = this.state.squares.slice();
-    squares[i] = 'X';
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
       squares,
+      xIsNext: !this.state.xIsNext,
     });
   }
 
@@ -34,7 +37,8 @@ class Board extends React.Component<{}, IState> {
   }
 
   render() {
-    const status = 'Next player: X';
+    const { xIsNext } = this.state;
+    const status = xIsNext ? 'Next player: X' : 'Next player: O';
 
     return (
       <div>
