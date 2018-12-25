@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from '../theme';
+import { calcWinner } from '../functions/calcWinner';
 
 import Square from './Square';
 
@@ -19,6 +20,12 @@ class Board extends React.Component<{}, IState> {
 
   handleClick(i: number) {
     const squares = this.state.squares.slice();
+    const winner = calcWinner(squares);
+
+    if (winner || squares[i]) {
+      return;
+    }
+
     squares[i] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
@@ -38,7 +45,12 @@ class Board extends React.Component<{}, IState> {
 
   render() {
     const { xIsNext } = this.state;
-    const status = xIsNext ? 'Next player: X' : 'Next player: O';
+    const winner = calcWinner(this.state.squares);
+    let status = xIsNext ? 'Next player: X' : 'Next player: O';
+
+    if (winner) {
+      status = `Winner: ${winner}`;
+    }
 
     return (
       <div>
