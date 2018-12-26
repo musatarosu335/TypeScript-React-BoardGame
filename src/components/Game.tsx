@@ -56,6 +56,16 @@ class Game extends React.Component<{}, IState> {
       status = `Winner: ${winner}`;
     }
 
+    const moves = history.map((step, i) => {
+      const desc = i ? `Go to move #${i}` : 'Go to game start';
+
+      return (
+        <li key={i}>
+          <button className={step.squares[0]}>{desc}</button>
+        </li>
+      );
+    });
+
     return (
       <Container>
         <GameBoard>
@@ -66,7 +76,7 @@ class Game extends React.Component<{}, IState> {
         </GameBoard>
         <GameInfo>
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </GameInfo>
       </Container>
     );
