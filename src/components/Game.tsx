@@ -48,7 +48,14 @@ class Game extends React.Component<{}, IState> {
   }
 
   render() {
-    const { history, stepNumber } = this.state;
+    const { history, xIsNext, stepNumber } = this.state;
+    const winner = calcWinner(history[stepNumber].squares);
+    let status = xIsNext ? 'Next player: X' : 'Next player: O';
+
+    if (winner) {
+      status = `Winner: ${winner}`;
+    }
+
     return (
       <Container>
         <GameBoard>
@@ -58,7 +65,7 @@ class Game extends React.Component<{}, IState> {
           />
         </GameBoard>
         <GameInfo>
-          <div>{/* status */}</div>
+          <div>{status}</div>
           <ol>{/* TODO */}</ol>
         </GameInfo>
       </Container>
