@@ -1,49 +1,25 @@
 import * as React from 'react';
 import styled from '../theme';
-import { calcWinner } from '../functions/calcWinner';
 
 import Square from './Square';
 
-interface IState {
+interface IBoardProps {
   squares: string[];
-  xIsNext: boolean;
+  onClick: (i: number) => void;
 }
 
-class Board extends React.Component<{}, IState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(''),
-      xIsNext: true,
-    };
-  }
-
-  handleClick(i: number) {
-    const squares = this.state.squares.slice();
-    const winner = calcWinner(squares);
-
-    if (winner || squares[i]) {
-      return;
-    }
-
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-
-    this.setState({
-      squares,
-      xIsNext: !this.state.xIsNext,
-    });
-  }
-
+class Board extends React.Component<IBoardProps> {
   renderSquare(i: number) {
     return (
       <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
 
   render() {
+    /*
     const { xIsNext } = this.state;
     const winner = calcWinner(this.state.squares);
     let status = xIsNext ? 'Next player: X' : 'Next player: O';
@@ -51,6 +27,7 @@ class Board extends React.Component<{}, IState> {
     if (winner) {
       status = `Winner: ${winner}`;
     }
+    */
 
     return (
       <div>

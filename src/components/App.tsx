@@ -1,12 +1,12 @@
 import * as React from 'react';
 import styled from '../theme';
 
-import Board from './Board';
+import Game from './Game';
 
 const App = () => (
   <Container>
     <h1>TypeScript React!!</h1>
-    <Board />
+    <Game />
   </Container>
 );
 
